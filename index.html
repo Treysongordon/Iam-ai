@@ -114,49 +114,34 @@
     </div>
 
     <script>
-    document.getElementById("impactForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+        document.getElementById("impactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-        var formData = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            category: document.getElementById("category").value,
-            platforms: document.getElementById("platforms").value
-        };
+            var formData = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                category: document.getElementById("category").value,
+                platforms: document.getElementById("platforms").value
+            };
 
-        console.log("Submit button clicked!");
-        console.log("Form Data:", formData);
-
-        fetch("https://script.google.com/macros/s/AKfycbwua_ASRHQePxi-iBm5CB-txGZX8_baASvJclQDocNKlfUUG0oXZtvPVhC2izZ1DK0V/exec", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => response.json())
-        .then((data) => {
-            if (data.status === "success") {
-                console.log("Submission Successful!");
-                
-                // Hide form and show thank you message
-                document.getElementById("form-container").classList.add("hidden");
-                document.getElementById("thank-you-container").classList.remove("hidden");
-
-                // Redirect to Calendly after 2 seconds
-                setTimeout(() => {
-                    window.location.href = "https://calendly.com/treysongordon33/30min";
-                }, 2000);
-            } else {
-                console.error("Google Script Error:", data.message);
-                alert("There was an issue submitting your data. Please try again.");
-            }
-        })
-        .catch(error => {
-            console.error("Fetch Error:", error);
-            alert("There was an issue submitting your data. Please try again.");
+            fetch("https://script.google.com/macros/s/AKfycbyzn3-SRC5961siEAbLi4dB-psCm5gTgptFtQR6zq4ehX9qrp115cQjC3wpBrZ3KmiG/exec", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then((data) => {
+                if (data.status === "success") {
+                    document.getElementById("form-container").classList.add("hidden");
+                    document.getElementById("thank-you-container").classList.remove("hidden");
+                } else {
+                    alert("There was an issue submitting your data. Please try again.");
+                }
+            })
+            .catch(error => console.error("Fetch Error:", error));
         });
-    });
     </script>
 </body>
 </html>
