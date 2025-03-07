@@ -85,13 +85,13 @@
 </head>
 <body>
     <div class="container" id="form-container">
-        <h1>I Am</h1>  <!-- New Title Added -->
+        <h1>I Am</h1>  <!-- Title added -->
         <h2>Get Started</h2>
         <form id="impactForm">
             <label for="name">Name:</label>
             <input type="text" id="name" placeholder="Enter your name" required>
 
-            <label for="email">Email:</label>  <!-- New Email Field -->
+            <label for="email">Email:</label>  <!-- Email Field Added -->
             <input type="email" id="email" placeholder="Enter your email" required>
             
             <label for="category">Impacter Category:</label>
@@ -119,37 +119,49 @@
     </div>
 
    <script>
-    document.getElementById("impactForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("impactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-        var formData = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,  // Email added
-            category: document.getElementById("category").value,
-            platforms: document.getElementById("platforms").value
-        };
+            console.log("Submit button clicked!");  // Debugging message
 
-        fetch("https://script.google.com/macros/s/AKfycbx1aRYiBf8pbQON0QvbUxRHmzOgUbL2VnL5cprA2-DiA5tqGWKeO71AhodUFxsTbtOp/exec", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => response.json())  
-        .then((data) => {
-            if (data.status === "success") {
-                document.getElementById("form-container").classList.add("hidden");
-                document.getElementById("thank-you-container").classList.remove("hidden");
-                setTimeout(() => {
-                    window.location.href = "https://calendly.com/treysongordon33/30min";
-                }, 2000);
-            } else {
-                console.error("Google Script Error:", data.message);
-            }
-        })
-        .catch(error => console.error("Fetch Error:", error));
+            var formData = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,  // Email added
+                category: document.getElementById("category").value,
+                platforms: document.getElementById("platforms").value
+            };
+
+            console.log("Form Data:", formData);  // Debugging message
+
+            fetch("https://script.google.com/macros/s/AKfycbwuufdJ2kKfmq-YK5SbVBYA-LZjoMQfM57kQmAPFtIfScIPtIPhT0Medy04OIkqG4lU/exec", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())  
+            .then((data) => {
+                console.log("Google Sheets Response:", data);
+
+                if (data.includes("success")) {
+                    document.getElementById("form-container").classList.add("hidden");
+                    document.getElementById("thank-you-container").classList.remove("hidden");
+
+                    setTimeout(() => {
+                        window.location.href = "https://calendly.com/treysongordon33/30min";
+                    }, 2000);
+                } else {
+                    alert("Submission failed. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Fetch Error:", error);
+                alert("There was an issue submitting your data. Please try again.");
+            });
+        });
     });
-</script>
+    </script>
 </body>
 </html>
