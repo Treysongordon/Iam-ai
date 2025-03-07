@@ -122,10 +122,22 @@
         document.getElementById('impactForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the default form submission
 
-            // Perform form submission logic here (e.g., send data to server)
+            // Create a hidden iframe to submit the form
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
 
-            // Redirect to Calendly link after form submission
-            window.location.href = 'https://calendly.com/treysongordon33/30min';
+            // Set the form target to the iframe
+            var form = event.target;
+            form.target = iframe.name;
+
+            // Submit the form
+            form.submit();
+
+            // Redirect to Calendly link after a short delay
+            setTimeout(function() {
+                window.location.href = 'https://calendly.com/treysongordon33/30min';
+            }, 1000); // Adjust the delay as needed
         });
     </script>
 </body>
