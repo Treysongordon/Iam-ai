@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Am - Impact Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1E1E2F, #25253A);
+            padding: 20px;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.03);
+        }
+        h2 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        input, select, button {
+            width: 100%;
+            margin: 12px 0;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+        input, select {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        input:focus, select:focus {
+            outline: none;
+            border: 1px solid #ff8c00;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
+        }
+        button {
+            background: #ff8c00;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+        }
+        button:hover {
+            background: #e07b00;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="form-container">
+        <h2>Get Started</h2>
+        <form id="impactForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+            
+            <label for="category">Impacter Category:</label>
+            <select id="category" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="Content Creator">Content Creator</option>
+                <option value="Coach">Coach</option>
+                <option value="Online Programs">Online Programs</option>
+                <option value="Podcaster">Podcaster</option>
+                <option value="Influencer">Influencer</option>
+            </select>
+            
+            <label for="platforms">Platforms Currently Using:</label>
+            <input type="text" id="platforms" placeholder="Instagram, TikTok, YouTube..." required>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="container hidden" id="thank-you-container">
+        <h2>If we could save you time, drive more money, and help you make a bigger impact:</h2>
+        <a href="https://calendly.com/treysongordon33/30min" target="_blank">
+            <button>Schedule Demo Call Here</button>
+        </a>
+    </div>
+
+   <script>
+    document.getElementById("impactForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var formData = {
+            name: document.getElementById("name").value,
+            category: document.getElementById("category").value,
+            platforms: document.getElementById("platforms").value
+        };
+
+        fetch("https://script.google.com/macros/s/AKfycbx1aRYiBf8pbQON0QvbUxRHmzOgUbL2VnL5cprA2-DiA5tqGWKeO71AhodUFxsTbtOp/exec", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())  
+        .then((data) => {
+            if (data.status === "success") {
+                document.getElementById("form-container").classList.add("hidden");
+                document.getElementById("thank-you-container").classList.remove("hidden");
+                setTimeout(() => {
+                    window.location.href = "https://calendly.com/treysongordon33/30min";
+                }, 2000);
+            } else {
+                console.error("Google Script Error:", data.message);
+            }
+        })
+        .catch(error => console.error("Fetch Error:", error));
+    });
+</script>
+</body>
+</html>
