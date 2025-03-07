@@ -127,7 +127,7 @@
             console.log("Submit button clicked!");
             console.log("Form Data:", formData);
 
-            fetch("https://script.google.com/macros/s/AKfycbwCYD8ls1wHoXclv0e09zDsIdj5tn4L1ZTX53_SuPAoJSWS44ZqhRlZDlVRohy1wxU/exec", {
+            fetch("YOUR_NEW_GOOGLE_SCRIPT_URL", { // Replace with your new deployment URL
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -137,18 +137,16 @@
             .then(response => response.json())
             .then(data => {
                 console.log("Response received:", data);
-                // ✅ Hides the form and shows the thank-you message
                 document.getElementById("form-container").classList.add("hidden");
                 document.getElementById("thank-you-container").classList.remove("hidden");
 
-                // ✅ Auto-open Calendly in a new tab after submission
                 setTimeout(() => {
                     window.open("https://calendly.com/treysongordon33/30min", "_blank");
-                }, 2000); // Opens Calendly after 2 seconds
+                }, 2000);
             })
             .catch(error => {
                 console.error("Fetch Error:", error);
-                alert("Your submission was sent, but we couldn't update the page. Please refresh.");
+                alert("Submission was sent, but the page didn't update. Please refresh.");
             });
         });
     </script>
