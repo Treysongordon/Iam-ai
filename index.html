@@ -117,18 +117,6 @@
     <script>
         // GSAP Animations for Smooth Fade-In
         gsap.to(".container", { duration: 1, opacity: 1, scale: 1, ease: "power2.out" });
-
-        document.getElementById("impactForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            // Hide Form & Show Submission Confirmation
-            document.querySelector(".container").innerHTML = "<h2>Submission Successful!</h2><p>Redirecting...</p>";
-
-            // Redirect to Calendly after a short delay
-            setTimeout(() => {
-                window.location.href = "https://calendly.com/treysongordon33/30min";
-            }, 2000);
-        });
     </script>
 </body>
 </html>
