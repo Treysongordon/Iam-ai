@@ -20,7 +20,6 @@
             background: linear-gradient(135deg, #1E1E2F, #25253A);
             padding: 20px;
             color: white;
-            text-align: center;
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
@@ -28,17 +27,13 @@
             padding: 35px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
             width: 100%;
             max-width: 420px;
             transition: transform 0.3s ease-in-out;
         }
         .container:hover {
             transform: scale(1.03);
-        }
-        h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 10px;
         }
         h2 {
             font-weight: 600;
@@ -85,15 +80,15 @@
 </head>
 <body>
     <div class="container" id="form-container">
-        <h1>I Am</h1>  <!-- Title added -->
-        <h2>Get Started</h2>
+        <h2>I Am</h2>
+        <h3>Get Started</h3>
         <form id="impactForm">
             <label for="name">Name:</label>
             <input type="text" id="name" placeholder="Enter your name" required>
 
-            <label for="email">Email:</label>  <!-- Email Field Added -->
+            <label for="email">Email:</label>
             <input type="email" id="email" placeholder="Enter your email" required>
-            
+
             <label for="category">Impacter Category:</label>
             <select id="category" required>
                 <option value="" disabled selected>Select a category</option>
@@ -103,10 +98,10 @@
                 <option value="Podcaster">Podcaster</option>
                 <option value="Influencer">Influencer</option>
             </select>
-            
+
             <label for="platforms">Platforms Currently Using:</label>
             <input type="text" id="platforms" placeholder="Instagram, TikTok, YouTube..." required>
-            
+
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -118,48 +113,48 @@
         </a>
     </div>
 
-   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("impactForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+    <script>
+    document.getElementById("impactForm").addEventListener("submit", function(event) {
+        event.preventDefault();
 
-            console.log("Submit button clicked!");  // Debugging message
+        var formData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            category: document.getElementById("category").value,
+            platforms: document.getElementById("platforms").value
+        };
 
-            var formData = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,  // Email added
-                category: document.getElementById("category").value,
-                platforms: document.getElementById("platforms").value
-            };
+        console.log("Submit button clicked!");
+        console.log("Form Data:", formData);
 
-            console.log("Form Data:", formData);  // Debugging message
+        fetch("https://script.google.com/macros/s/AKfycbwua_ASRHQePxi-iBm5CB-txGZX8_baASvJclQDocNKlfUUG0oXZtvPVhC2izZ1DK0V/exec", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then((data) => {
+            if (data.status === "success") {
+                console.log("Submission Successful!");
+                
+                // Hide form and show thank you message
+                document.getElementById("form-container").classList.add("hidden");
+                document.getElementById("thank-you-container").classList.remove("hidden");
 
-            fetch("https://script.google.com/macros/s/AKfycbzVoQexj4f-zuSfCpQtA8I_3TyM2WPAvGR3KWgkiYbMCVPAfRM25LHyzfBkUdOwD3A3/exec", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())  
-            .then((data) => {
-                console.log("Google Sheets Response:", data);
-
-                if (data.status === "success") {
-                    document.getElementById("form-container").classList.add("hidden");
-                    document.getElementById("thank-you-container").classList.remove("hidden");
-
-                    setTimeout(() => {
-                        window.location.href = "https://calendly.com/treysongordon33/30min";
-                    }, 2000);
-                } else {
-                    alert("Submission failed. Please try again.");
-                }
-            })
-            .catch(error => {
-                console.error("Fetch Error:", error);
+                // Redirect to Calendly after 2 seconds
+                setTimeout(() => {
+                    window.location.href = "https://calendly.com/treysongordon33/30min";
+                }, 2000);
+            } else {
+                console.error("Google Script Error:", data.message);
                 alert("There was an issue submitting your data. Please try again.");
-            });
+            }
+        })
+        .catch(error => {
+            console.error("Fetch Error:", error);
+            alert("There was an issue submitting your data. Please try again.");
         });
     });
     </script>
