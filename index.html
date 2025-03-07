@@ -110,9 +110,6 @@
             <label for="platforms">Platforms Currently Using:</label>
             <input type="text" id="platforms" name="platforms" placeholder="Instagram, TikTok, YouTube..." required>
 
-            <label for="calendly">Schedule a Call:</label>
-            <a href="https://calendly.com/treysongordon33/30min" target="_blank" style="display: block; margin: 12px 0; padding: 14px; background: #ff8c00; color: white; border-radius: 10px; text-align: center; text-decoration: none; font-weight: 600;">Schedule a Call</a>
-
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -120,6 +117,12 @@
     <script>
         // GSAP Animations for Smooth Fade-In
         gsap.to(".container", { duration: 1, opacity: 1, scale: 1, ease: "power2.out" });
+
+        // Handle form submission and redirect to Calendly link
+        document.getElementById('impactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            window.location.href = 'https://calendly.com/treysongordon33/30min'; // Redirect to Calendly link
+        });
     </script>
 </body>
 </html>
