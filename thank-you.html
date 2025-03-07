@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1E1E2F, #25253A);
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 420px;
+        }
+        h2 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        a {
+            display: block;
+            margin: 12px 0;
+            padding: 14px;
+            background: #ff8c00;
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            background: #e07b00;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Thank You!</h2>
+        <p>Your submission has been received.</p>
+        <p>You will be redirected to schedule a call shortly.</p>
+        <a href="https://calendly.com/treysongordon33/30min">Schedule a Call Now</a>
+    </div>
+
+    <script>
+        // Redirect to Calendly link after a short delay
+        setTimeout(function() {
+            window.location.href = 'https://calendly.com/treysongordon33/30min';
+        }, 5000); // Adjust the delay as needed
+    </script>
+</body>
+</html>
