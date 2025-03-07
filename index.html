@@ -118,7 +118,7 @@
         // GSAP Animations for Smooth Fade-In
         gsap.to(".container", { duration: 1, opacity: 1, scale: 1, ease: "power2.out" });
 
-        // Handle form submission and redirect to thank you page
+        // Handle form submission and redirect to Calendly page
         document.getElementById('impactForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the default form submission
 
@@ -131,13 +131,14 @@
             var form = event.target;
             form.target = iframe.name;
 
+            // Listen for the iframe load event to confirm form submission
+            iframe.onload = function() {
+                // Redirect to Calendly link after the form is submitted
+                window.location.href = 'https://calendly.com/treysongordon33/30min';
+            };
+
             // Submit the form
             form.submit();
-
-            // Redirect to thank you page after a short delay
-            setTimeout(function() {
-                window.location.href = 'thank-you.html';
-            }, 1000); // Adjust the delay as needed
         });
     </script>
 </body>
