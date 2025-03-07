@@ -141,11 +141,11 @@
                 },
                 body: JSON.stringify(formData)
             })
-            .then(response => response.text())  
+            .then(response => response.json())  
             .then((data) => {
                 console.log("Google Sheets Response:", data);
 
-                if (data.includes("success")) {
+                if (data.status === "success") {
                     document.getElementById("form-container").classList.add("hidden");
                     document.getElementById("thank-you-container").classList.remove("hidden");
 
