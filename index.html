@@ -124,7 +124,10 @@
                 platforms: document.getElementById("platforms").value
             };
 
-            fetch("https://script.google.com/macros/s/AKfycbyzn3-SRC5961siEAbLi4dB-psCm5gTgptFtQR6zq4ehX9qrp115cQjC3wpBrZ3KmiG/exec", {
+            console.log("Submit button clicked!");
+            console.log("Form Data:", formData);
+
+            fetch("https://script.google.com/macros/s/AKfycbwCYD8ls1wHoXclv0e09zDsIdj5tn4L1ZTX53_SuPAoJSWS44ZqhRlZDlVRohy1wxU/exec", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -132,7 +135,7 @@
                 body: JSON.stringify(formData)
             })
             .then(response => response.json())
-            .then((data) => {
+            .then(data => {
                 if (data.status === "success") {
                     document.getElementById("form-container").classList.add("hidden");
                     document.getElementById("thank-you-container").classList.remove("hidden");
@@ -140,7 +143,10 @@
                     alert("There was an issue submitting your data. Please try again.");
                 }
             })
-            .catch(error => console.error("Fetch Error:", error));
+            .catch(error => {
+                console.error("Fetch Error:", error);
+                alert("Submission failed. Check the console for details.");
+            });
         });
     </script>
 </body>
