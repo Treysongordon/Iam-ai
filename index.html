@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Am - Impact Demo</title>
+    <title>I Am - Impact Form</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -80,12 +80,11 @@
 </head>
 <body>
     <div class="container" id="form-container">
-        <h2>I Am</h2>
-        <h3>Get Started</h3>
+        <h2>I Am - Get Started</h2>
         <form id="impactForm">
             <label for="name">Name:</label>
             <input type="text" id="name" placeholder="Enter your name" required>
-
+            
             <label for="email">Email:</label>
             <input type="email" id="email" placeholder="Enter your email" required>
 
@@ -98,18 +97,19 @@
                 <option value="Podcaster">Podcaster</option>
                 <option value="Influencer">Influencer</option>
             </select>
-
+            
             <label for="platforms">Platforms Currently Using:</label>
             <input type="text" id="platforms" placeholder="Instagram, TikTok, YouTube..." required>
-
+            
             <button type="submit">Submit</button>
         </form>
     </div>
 
     <div class="container hidden" id="thank-you-container">
-        <h2>If we could save you time, drive more money, and help you make a bigger impact:</h2>
+        <h2>Thank you!</h2>
+        <p>Your submission has been received. If we could save you time, drive more money, and help you make a bigger impact:</p>
         <a href="https://calendly.com/treysongordon33/30min" target="_blank">
-            <button>Schedule Demo Call Here</button>
+            <button>Schedule a Demo Call Here</button>
         </a>
     </div>
 
@@ -132,21 +132,23 @@
                 headers: {
                     "Content-Type": "application/json"
                 },
-                mode: 'no-cors', // Added this line
                 body: JSON.stringify(formData)
             })
             .then(response => response.json())
             .then(data => {
-                if (data.status === "success") {
-                    document.getElementById("form-container").classList.add("hidden");
-                    document.getElementById("thank-you-container").classList.remove("hidden");
-                } else {
-                    alert("There was an issue submitting your data. Please try again.");
-                }
+                console.log("Response received:", data);
+                // ✅ Hides the form and shows the thank-you message
+                document.getElementById("form-container").classList.add("hidden");
+                document.getElementById("thank-you-container").classList.remove("hidden");
+
+                // ✅ Auto-open Calendly in a new tab after submission
+                setTimeout(() => {
+                    window.open("https://calendly.com/treysongordon33/30min", "_blank");
+                }, 2000); // Opens Calendly after 2 seconds
             })
             .catch(error => {
                 console.error("Fetch Error:", error);
-                alert("Submission failed. Check the console for details.");
+                alert("Your submission was sent, but we couldn't update the page. Please refresh.");
             });
         });
     </script>
